@@ -13,17 +13,27 @@
 #include "push_swap.h"
 #include <limits.h>
 
-static int	cmp_int(const void *a, const void *b)
+static void	sort_ints(int *a, int n)
 {
-	const int	x = *(const int *)a;
-	const int	y = *(const int *)b;
+	int		key;
+	int		i;
+	int		j;
 
-	if (x < y)
-		return (-1);
-	if (x > y)
-		return (1);
-	return (0);
+	i = 1;
+	while (i < n)
+	{
+		key = a[i];
+		j = i - 1;
+		while (j >= 0 && a[j] > key)
+		{
+			a[j + 1] = a[j];
+			j--;
+		}
+		a[j + 1] = key;
+		i++;
+	}
 }
+
 
 static int	parse_atoi(const char *s, t_args *args)
 {
@@ -72,7 +82,7 @@ static void	check_duplicates(int *values, int n, t_args *args)
 		cpy[i] = values[i];
 		i++;
 	}
-	qsort(cpy, n, sizeof(int), cmp_int);
+	sort_ints(cpy, n);
 	i = 1;
 	while (i < n)
 	{

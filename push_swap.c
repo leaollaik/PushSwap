@@ -67,7 +67,10 @@ int	main(int argc, char **argv)
 		return (1);
 	new_args(&args);
 	if (argc <= 1)
+	{
+		free_args(&args);
 		return (0);
+	}
 	values = parse(argv, args);
 	stack = get_stack(values, args);
 	free(values);
